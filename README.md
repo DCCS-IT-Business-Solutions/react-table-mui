@@ -7,6 +7,24 @@ A npm package that implements react-table-plain for Material-UI.
 
 ## Usage
 
+```typescript jsx
+
+import {TableMui} from "@dccs/react-table-mui";
+
+function List() {
+    return <TableMui data={[]} />
+}
+
+```
+
+## Version < 1.0
+
+In all versions lower than 1.0 _react-table-mui_ was designed as a theme to _react-table-plain.
+
+Since version 1.0 _react-table-mui_ is a stand alone lib that is fully bound to Mui.
+
+## Usage
+
 ```javascript
 
 import { TablePlain } from "@dccs/react-table-plain"
