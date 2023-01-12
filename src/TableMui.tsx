@@ -222,7 +222,7 @@ export class TableMui extends React.Component<TableProps, IState> {
   renderCell(colDef: IColDef, data: any, idx: number, props?: object) {
     const ps = {
       // IMPORTANT: The order of the following lines matters:
-      //...this.ellipsisToCss(this.props.ellipsis),
+      // ...this.ellipsisToCss(this.props.ellipsis),
       // generated style props for alignment
       ...this.alignToCss(colDef.align),
       // table-wide cell props.

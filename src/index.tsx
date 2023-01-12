@@ -22,10 +22,10 @@ export enum RowSelectionType {
 }
 
 export interface IRowSelectionProps {
-  selectedRow?: any | any[]; // Welche Zeile wird hervorgehoben. Bei einem Array können mehrere Zeilen hervorgehoben werden (optional)
-  onChangeSelectedRow?: (data: any) => void; // Ausgewählte Zeile wurde verändert.
-  selectedRowProps?: (data: any) => object; // Wird pro ausgewählter Zeile aufgerufen. Ergebnis wird den Props der <tr> hinzugefügt.
-  columnName: string; // Mit welchem Column selectedRow verglichen werden soll
+  selectedRow?: any | any[];                  // Welche Zeile wird hervorgehoben. Bei einem Array können mehrere Zeilen hervorgehoben werden (optional)
+  onChangeSelectedRow?: (data: any) => void;  // Ausgewählte Zeile wurde verändert.
+  selectedRowProps?: (data: any) => object;   // Wird pro ausgewählter Zeile aufgerufen. Ergebnis wird den Props der <tr> hinzugefügt.
+  columnName: string;                         // Mit welchem Column selectedRow verglichen werden soll
 }
 
 export type RowSelectionProps = IRowSelectionProps;
