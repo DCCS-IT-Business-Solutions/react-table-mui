@@ -1,8 +1,9 @@
 import * as React from "react";
-import { shallow } from "enzyme";
-import { tableMuiTheme } from "../index";
-import { TablePlain } from "@dccs/react-table-plain";
+import {cleanup, render} from "@testing-library/react"
+import {TableMui} from "../TableMui";
+
+afterEach(cleanup);
 
 it("should render", () => {
-  shallow(<TablePlain {...tableMuiTheme} data={[]} desc={false} />);
+  render(<TableMui data={[]}  />);
 });
