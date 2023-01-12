@@ -1,6 +1,6 @@
 {
   "name": "@dccs/react-table-mui",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "description": "A Material-UI implementation of react-table-plain",
   "main": "lib/index.js",
   "scripts": {
