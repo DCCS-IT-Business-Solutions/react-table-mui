@@ -59,6 +59,7 @@ export interface ITablePlainProps {
   selectedRowProps?: (data: any) => object;
   rowSelectionColumnName?: string;
   filterBlur?: boolean;
+  alternateRowBackground?: boolean;
 }
 
 export type TableProps = ITablePlainProps & ITableElements;

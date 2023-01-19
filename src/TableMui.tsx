@@ -179,7 +179,7 @@ export class TableMui extends React.Component<TableProps, IState> {
       <TableRow
         key={key}
         style={{
-          background: key % 2 ? "#ebebeb" : "white",
+          background: this.props.alternateRowBackground ? (key % 2 ? "#ebebeb" : "white") : undefined,
           cursor: this.props.onRowClick ? "pointer" : "default"
         }}
         onClick={() => this.onClickCalls(data)}
