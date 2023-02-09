@@ -1,15 +1,17 @@
 import * as React from "react";
-import {TableProps, IColDef, ChangeFilterHandler} from ".";
+import {ChangeFilterHandler} from ".";
 import {some, sumBy} from "lodash";
 import {IconButton, Table, TableBody, TableCell, TableFooter, TableHead, TableRow, TableSortLabel} from "@mui/material";
 import {ExpandMore} from "@mui/icons-material";
+import {IColDef} from "./IColDef";
+import {TableProps} from "./Props";
 
 interface IState {
   filter: any;
   showSubComponent: object;
 }
 
-export class TableMui extends React.Component<TableProps, IState> {
+export class TableMui<T> extends React.Component<TableProps<T>, IState> {
   state = {
     filter: this.props.defaultFilter || {},
     showSubComponent: {}
@@ -48,7 +50,7 @@ export class TableMui extends React.Component<TableProps, IState> {
     return <Table style={{tableLayout: "auto"}}>{children}</Table>;
   };
 
-  renderData(colDef: IColDef[], data: any[]) {
+  renderData(colDef: IColDef<T>[], data: any[]) {
     return (
       <TableBody>
         {data && data.map((d, idx) => this.renderRow(colDef, d, idx))}
@@ -170,7 +172,7 @@ export class TableMui extends React.Component<TableProps, IState> {
     }
   }
 
-  renderRow(colDef: IColDef[], data: any, key: number) {
+  renderRow(colDef: IColDef<T>[], data: any, key: number) {
     const renderIndicator =
       this.props.renderExpansionIndicator || this.renderExpansionIndicator;
     const props = this.props.rowProps != null && this.props.rowProps(data);
@@ -219,7 +221,7 @@ export class TableMui extends React.Component<TableProps, IState> {
     return result;
   }
 
-  renderCell(colDef: IColDef, data: any, idx: number, props?: object) {
+  renderCell(colDef: IColDef<T>, data: any, idx: number, props?: object) {
     const ps = {
       // IMPORTANT: The order of the following lines matters:
       // ...this.ellipsisToCss(this.props.ellipsis),
@@ -248,7 +250,7 @@ export class TableMui extends React.Component<TableProps, IState> {
     );
   }
 
-  renderHeader(colDef: IColDef[]) {
+  renderHeader(colDef: IColDef<T>[]) {
     const totalWidth = sumBy(colDef, x => x.width || 0);
 
     const render =
@@ -274,7 +276,7 @@ export class TableMui extends React.Component<TableProps, IState> {
       <TableHead>
         <TableRow>
           {renderSubComponentSpacer(this.props.subComponent)}
-          {colDef.map((col: IColDef, idx) =>
+          {colDef.map((col: IColDef<T>, idx) =>
             render(col, idx, undefined, totalWidth)
           )}
         </TableRow>
@@ -298,7 +300,7 @@ export class TableMui extends React.Component<TableProps, IState> {
 
 
   renderHeaderCell(
-    colDef: IColDef,
+    colDef: IColDef<T>,
     idx: number,
     props?: object,
     totalWidth?: number
@@ -331,7 +333,7 @@ export class TableMui extends React.Component<TableProps, IState> {
       </TableCell>
     );
   }
-  renderSortLabel (colDef: IColDef, desc: boolean) {
+  renderSortLabel (colDef: IColDef<T>, desc: boolean) {
     return <TableSortLabel active direction={desc ? "desc" : "asc"}/>
   }
   renderExpansionIndicator (expanded: boolean) {
@@ -345,7 +347,7 @@ export class TableMui extends React.Component<TableProps, IState> {
     </IconButton>
   }
 
-renderFilter(colDef: IColDef) {
+renderFilter(colDef: IColDef<T>) {
   let input = (
       <input
         type="text"
@@ -379,7 +381,7 @@ renderFilter(colDef: IColDef) {
       : input;
   }
 
-  renderFooter(colDef: IColDef[], data: any[]) {
+  renderFooter(colDef: IColDef<T>[], data: any[]) {
     return (
       <TableFooter>
         <TableRow>
@@ -393,7 +395,7 @@ renderFilter(colDef: IColDef) {
     );
   }
 
-  renderFooterCell(colDef: IColDef, data: any[], idx: number) {
+  renderFooterCell(colDef: IColDef<T>, data: T[], idx: number) {
     const ps = this.alignToCss(colDef.align);
     return (
       <TableCell key={idx} variant="footer" {...colDef.footerProps} {...ps}>
@@ -406,7 +408,7 @@ renderFilter(colDef: IColDef) {
     );
   }
 
-  generateColDef(_: any[]): IColDef[] {
+  generateColDef(_: any[]): IColDef<T>[] {
     return [];
   }
 
