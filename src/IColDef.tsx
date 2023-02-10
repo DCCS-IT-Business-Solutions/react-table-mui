@@ -1,7 +1,7 @@
 import * as React from "react";
 
 export interface IColDef<T> {
-  prop: keyof T;
+  prop: PropType<T>;
   header: string | ElementContent<T> | React.ReactNode;
   accessor?: (data: T) => string;
   width?: number;
@@ -19,5 +19,6 @@ export interface IColDef<T> {
   footer?: string | ElementContent<T>;
 }
 
+export type PropType<T> = keyof T | "";
 type Fn<T> = (colDef: IColDef<T>, data: T[]) => React.ReactNode;
 type ElementContent<T> = string | Fn<T>;

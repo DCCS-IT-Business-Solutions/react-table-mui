@@ -1,4 +1,6 @@
-export type ChangeFilterHandler = (orderBy: string, value: any) => void;
+import {PropType} from "./IColDef";
+
+export type ChangeFilterHandler<T> = (orderBy: PropType<T>, value: any) => void;
 
 export type SortDirection = "asc" | "desc";
 

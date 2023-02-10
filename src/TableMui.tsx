@@ -3,7 +3,7 @@ import {ChangeFilterHandler} from ".";
 import {some, sumBy} from "lodash";
 import {IconButton, Table, TableBody, TableCell, TableFooter, TableHead, TableRow, TableSortLabel} from "@mui/material";
 import {ExpandMore} from "@mui/icons-material";
-import {IColDef} from "./IColDef";
+import {IColDef, PropType} from "./IColDef";
 import {TableProps} from "./Props";
 
 interface IState {
@@ -326,17 +326,19 @@ export class TableMui<T> extends React.Component<TableProps<T>, IState> {
           {colDef.header}
           {showSortHint && this.props.renderSortHint!(colDef)}
           {showSortLabel &&
-            this.props.renderSortLabel
-              ? this.props.renderSortLabel(colDef, this.props.sort === "desc")
-              : this.renderSortLabel(colDef, this.props.sort === "desc")}
+          this.props.renderSortLabel
+            ? this.props.renderSortLabel(colDef, this.props.sort === "desc")
+            : this.renderSortLabel(colDef, this.props.sort === "desc")}
         </>
       </TableCell>
     );
   }
-  renderSortLabel (colDef: IColDef<T>, desc: boolean) {
+
+  renderSortLabel(colDef: IColDef<T>, desc: boolean) {
     return <TableSortLabel active direction={desc ? "desc" : "asc"}/>
   }
-  renderExpansionIndicator (expanded: boolean) {
+
+  renderExpansionIndicator(expanded: boolean) {
     return <IconButton
       style={{
         transition: "transform 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms",
@@ -347,12 +349,13 @@ export class TableMui<T> extends React.Component<TableProps<T>, IState> {
     </IconButton>
   }
 
-renderFilter(colDef: IColDef<T>) {
-  let input = (
+  renderFilter(colDef: IColDef<T>) {
+    const propName = colDef.prop.toString();
+    let input = (
       <input
         type="text"
-        name={colDef.prop}
-        value={this.filter[colDef.prop] || ""}
+        name={propName}
+        value={this.filter[propName] || ""}
         onChange={e => this.handleFilterChange(colDef.prop, e.target.value)}
       />
     );
@@ -361,7 +364,7 @@ renderFilter(colDef: IColDef<T>) {
       input = (
         <input
           type="text"
-          name={colDef.prop}
+          name={propName}
           onKeyDown={e => {
             if (e.code === 'Enter') {
               e.currentTarget.blur();
@@ -375,7 +378,7 @@ renderFilter(colDef: IColDef<T>) {
     }
 
     return colDef.renderFilter
-      ? colDef.renderFilter(this.filter[colDef.prop], (v: any) =>
+      ? colDef.renderFilter(this.filter[propName], (v: any) =>
         this.handleFilterChange(colDef.prop, v)
       )
       : input;
@@ -412,16 +415,16 @@ renderFilter(colDef: IColDef<T>) {
     return [];
   }
 
-  handleChangeSort = (orderBy: string) => {
+  handleChangeSort = (orderBy: PropType<T>) => {
     if (this.props.onChangeOrderBy) {
       this.props.onChangeOrderBy(orderBy);
     }
   };
 
-  handleFilterChange = (orderBy: string, value: any) => {
+  handleFilterChange = (orderBy: PropType<T>, value: any) => {
     const name = orderBy;
 
-    function callHandler(fn?: ChangeFilterHandler) {
+    function callHandler(fn?: ChangeFilterHandler<T>) {
       if (fn != null) {
         fn(orderBy, value);
       }

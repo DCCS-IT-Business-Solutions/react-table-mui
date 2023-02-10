@@ -1,4 +1,4 @@
-import {IColDef} from "./IColDef";
+import {IColDef, PropType} from "./IColDef";
 import * as React from "react";
 import {ChangeFilterHandler, SortDirection} from "./index";
 import {ITableElements} from "./ITableElements";
@@ -8,8 +8,8 @@ export interface ITableMuiProps<T> {
   colDef?: IColDef<T>[];
   orderBy?: string;
   sort?: SortDirection;
-  onChangeOrderBy?: (orderBy: string) => void;
-  onChangeFilter?: ChangeFilterHandler;
+  onChangeOrderBy?: (orderBy: PropType<T>) => void;
+  onChangeFilter?: ChangeFilterHandler<T>;
   onRowClick?: (data: T) => void;
   renderRoot?: (children: React.ReactNode) => React.ReactNode;
   renderHeaderCell?: (col: IColDef<T>, idx: number) => React.ReactNode;
