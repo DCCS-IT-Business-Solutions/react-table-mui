@@ -6,7 +6,7 @@ import {ITableElements} from "./ITableElements";
 export interface ITableMuiProps<T> {
   data: T[];
   colDef?: IColDef<T>[];
-  orderBy?: string;
+  orderBy?: PropType<T>;
   sort?: SortDirection;
   onChangeOrderBy?: (orderBy: PropType<T>) => void;
   onChangeFilter?: ChangeFilterHandler<T>;
