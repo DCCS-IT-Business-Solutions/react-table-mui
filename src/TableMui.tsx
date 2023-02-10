@@ -181,7 +181,9 @@ export class TableMui<T> extends React.Component<TableProps<T>, IState> {
       <TableRow
         key={key}
         style={{
-          background: key % 2 ? "#ebebeb" : "white",
+          background: this.props.alternateRowBackgroundColor != null
+            ? (key % 2 ? this.props.alternateRowBackgroundColor : "white")
+            : undefined,
           cursor: this.props.onRowClick ? "pointer" : "default"
         }}
         onClick={() => this.onClickCalls(data)}
@@ -318,7 +320,7 @@ export class TableMui<T> extends React.Component<TableProps<T>, IState> {
       <TableCell
         key={idx}
         variant="head"
-        style={{cursor:colDef.sortable ? "pointer" : ""}}
+        style={{cursor: colDef.sortable ? "pointer" : ""}}
         {...colDef.headerProps}
         onClick={() => colDef.sortable && this.handleChangeSort(colDef.prop)}
         {...ps}

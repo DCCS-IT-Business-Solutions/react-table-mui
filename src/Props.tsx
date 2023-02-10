@@ -25,6 +25,7 @@ export interface ITableMuiProps<T> {
   cellProps?: (data: T) => object;
   filter?: object;
   defaultFilter?: object;
+  alternateRowBackgroundColor?: string;
   ellipsis?: boolean;
   selectedRow?: T | T[];
   onChangeSelectedRow?: (data: T) => void;
