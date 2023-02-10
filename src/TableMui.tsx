@@ -318,6 +318,7 @@ export class TableMui<T> extends React.Component<TableProps<T>, IState> {
       <TableCell
         key={idx}
         variant="head"
+        style={{cursor:colDef.sortable ? "pointer" : ""}}
         {...colDef.headerProps}
         onClick={() => colDef.sortable && this.handleChangeSort(colDef.prop)}
         {...ps}
