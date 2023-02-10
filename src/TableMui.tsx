@@ -306,10 +306,13 @@ export class TableMui<T> extends React.Component<TableProps<T>, IState> {
     totalWidth?: number
   ) {
     const ps = {...props, ...this.alignToCss(colDef.align)};
-    const showSortHint = colDef.sortable && this.props.orderBy !== colDef.prop && this.props.renderSortHint != null;
-    const showSortLabel = this.props.orderBy &&
-      this.props.orderBy === colDef.prop &&
-      this.props.renderSortLabel != null;
+    const isSorted = this.props.orderBy === colDef.prop;
+    const showSortHint = colDef.sortable === true
+      && this.props.orderBy !== colDef.prop
+      && this.props.renderSortHint != null;
+    const showSortLabel = this.props.orderBy != null
+      && this.props.orderBy === colDef.prop
+      && this.props.renderSortLabel != null;
 
     return (
       <TableCell
@@ -324,11 +327,12 @@ export class TableMui<T> extends React.Component<TableProps<T>, IState> {
       >
         <>
           {colDef.header}
-          {showSortHint && this.props.renderSortHint!(colDef)}
-          {showSortLabel &&
-          this.props.renderSortLabel
-            ? this.props.renderSortLabel(colDef, this.props.sort === "desc")
-            : this.renderSortLabel(colDef, this.props.sort === "desc")}
+          {colDef.sortable && showSortHint && this.props.renderSortHint!(colDef)}
+          {colDef.sortable
+            ? (showSortLabel && this.props.renderSortLabel
+              ? this.props.renderSortLabel(colDef, this.props.sort === "desc")
+              : <TableSortLabel active={isSorted} direction={this.props.sort}/>)
+            : null}
         </>
       </TableCell>
     );
