@@ -11,9 +11,9 @@ interface IState {
   showSubComponent: object;
 }
 
-export class TableMui<T> extends React.Component<TableProps<T>, IState> {
+export class TableMui<T extends object, F extends keyof T & object> extends React.Component<TableProps<T, F>, IState> {
   state = {
-    filter: this.props.defaultFilter || {},
+    filter: this.props.defaultFilter || {} as F,
     showSubComponent: {}
   };
 

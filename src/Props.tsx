@@ -3,7 +3,7 @@ import * as React from "react";
 import {ChangeFilterHandler, SortDirection} from "./index";
 import {ITableElements} from "./ITableElements";
 
-export interface ITableMuiProps<T> {
+export interface ITableMuiProps<T extends object, F extends keyof T & object> {
   data: T[];
   colDef?: IColDef<T>[];
   orderBy?: PropType<T>;
@@ -23,8 +23,8 @@ export interface ITableMuiProps<T> {
   subComponent?: (data: T) => React.ReactNode;
   rowProps?: (data: T) => object;
   cellProps?: (data: T) => object;
-  filter?: object;
-  defaultFilter?: object;
+  filter?: F;
+  defaultFilter?: F;
   alternateRowBackgroundColor?: string;
   ellipsis?: boolean;
   selectedRow?: T | T[];
@@ -34,4 +34,4 @@ export interface ITableMuiProps<T> {
   filterBlur?: boolean;
 }
 
-export type TableProps<T> = ITableMuiProps<T> & ITableElements<T>;
+export type TableProps<T extends object, F extends keyof T & object> = ITableMuiProps<T, F> & ITableElements<T>;
